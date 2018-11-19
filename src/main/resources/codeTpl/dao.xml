@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>dao</name>
+	<project>server</project>
+	<filePath>src/main/java/${packageName}/server/${moduleName}/dao</filePath>
+	<fileName>${ClassName}Mapper.java</fileName>
+	<content><![CDATA[
+package ${packageName}.server.${moduleName}.dao;
+
+import com.towcent.base.common.annotation.MyBatisDao;
+import com.towcent.base.dal.db.CrudMapper;
+
+/**
+ * ${table.name} 数据库操作接口
+ * 
+ * @author ${author}
+ * @date ${dateTime}
+ * @version ${versionName}
+ * @copyright facegarden.com
+ */
+@MyBatisDao
+public interface ${ClassName}Mapper extends CrudMapper {
+
+}]]>
+	</content>
+</template>

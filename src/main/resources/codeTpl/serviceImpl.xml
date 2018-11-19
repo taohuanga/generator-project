@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>service</name>
+	<project>server</project>
+	<filePath>src/main/java/${packageName}/server/${moduleName}/service/impl</filePath>
+	<fileName>${ClassName}ServiceImpl.java</fileName>
+	<content><![CDATA[
+package ${packageName}.server.${moduleName}.service.impl;
+
+import com.towcent.base.dal.db.CrudMapper;
+import com.towcent.base.service.impl.BaseCrudServiceImpl;
+import ${packageName}.server.${moduleName}.dao.${ClassName}Mapper;
+import ${packageName}.server.${moduleName}.service.${ClassName}Service;
+import javax.annotation.Resource;
+import org.springframework.stereotype.Service;
+
+/**
+ * 
+ * @author ${author}
+ * @date ${dateTime}
+ * @version ${versionName}
+ * @copyright facegarden.com
+ */
+@Service("${className}ServiceImpl")
+public class ${ClassName}ServiceImpl extends BaseCrudServiceImpl implements ${ClassName}Service {
+
+    @Resource
+    private ${ClassName}Mapper ${className}Mapper;
+
+    @Override
+    public CrudMapper init() {
+        return ${className}Mapper;
+    }
+
+}]]>
+	</content>
+</template>

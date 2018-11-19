@@ -1,0 +1,13 @@
+1. database.doc 通过数据库表生成数据字典文档
+	通过配置application.properties 
+	1.1 Database sttings
+	
+2. (功能入口已经迁移至各个项目) db.code 生成dubbo持久层代码
+	通过配置application.properties 
+	2.1 Database sttings
+	2.2 generator code tools setting
+	
+3. project 生成脚手架工程
+	通过配置com.towcent.generator.project.constant.Constants的常量
+	
+	

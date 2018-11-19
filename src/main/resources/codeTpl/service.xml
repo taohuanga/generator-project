@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>service</name>
+	<project>server</project>
+	<filePath>src/main/java/${packageName}/server/${moduleName}/service</filePath>
+	<fileName>${ClassName}Service.java</fileName>
+	<content><![CDATA[
+package ${packageName}.server.${moduleName}.service;
+
+import com.towcent.base.service.BaseCrudService;
+
+/**
+ * ${table.name} 数据库操作Service接口
+ * 
+ * @author ${author}
+ * @date ${dateTime}
+ * @version ${versionName}
+ * @copyright facegarden.com
+ */
+public interface ${ClassName}Service extends BaseCrudService {
+	
+}]]>
+	</content>
+</template>

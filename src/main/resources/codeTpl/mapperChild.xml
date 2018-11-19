@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>mapper</name>
+	<project>server</project>
+	<filePath>src/main/resources/mapper/${moduleName}</filePath>
+	<fileName>${ClassName}ChildMapper.xml</fileName>
+	<content><![CDATA[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="${packageName}.server.${moduleName}.dao.${ClassName}ChildMapper" >
+	<sql id="condition" >
+    	<include refid="${packageName}.server.${moduleName}.dao.${ClassName}Mapper.condition" />
+  	</sql>
+	
+</mapper>]]>
+	</content>
+</template>

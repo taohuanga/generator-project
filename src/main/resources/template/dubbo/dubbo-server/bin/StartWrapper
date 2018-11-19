@@ -1,0 +1,37 @@
+#! /bin/sh
+
+#
+# Copyright (c) 1999, 2014 Tanuki Software, Ltd.
+# http://www.tanukisoftware.com
+# All rights reserved.
+#
+# This software is the proprietary information of Tanuki Software.
+# You shall use it only in accordance with the terms of the
+# license agreement you entered into with Tanuki Software.
+# http://wrapper.tanukisoftware.com/doc/english/licenseOverview.html
+#
+# Java Service Wrapper sh script.  Suitable for starting and stopping
+#  wrapped Java applications on UNIX platforms.
+#
+
+#-----------------------------------------------------------------------------
+# These settings can be modified to fit the needs of your application
+# Optimized for use with version 3.5.25 of the Wrapper.
+
+#********************************************************************
+# NOTE - This script has been modified to run the TestWrapper sample
+#        application and should NOT be used as a base for your own
+#        applications.  All of the documentation assumes that you are
+#        working from the default source script:
+#        WRAPPER_HOME/src/bin/sh.script.in
+#********************************************************************
+
+# IMPORTANT - Please always stop and uninstall an application before making
+#             any changes to this file.  Failure to do so could remove the
+#             script's ability to control the application.
+
+# Application
+APP_NAME="${projectName}-dubbo-server"
+APP_LONG_NAME="${projectName}-dubbo-server Application Server"
+
+

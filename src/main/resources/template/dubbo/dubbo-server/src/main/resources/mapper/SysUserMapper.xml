@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="${packageName}.${subPackageName}.app.server.sys.dao.SysUserMapper" >
+  <resultMap id="BaseResultMap" type="${packageName}.${subPackageName}.app.client.sys.dto.SysUser" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="company_id" property="companyId" jdbcType="INTEGER" />
+    <result column="office_id" property="officeId" jdbcType="INTEGER" />
+    <result column="login_name" property="loginName" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="no" property="no" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="user_type" property="userType" jdbcType="CHAR" />
+    <result column="photo" property="photo" jdbcType="VARCHAR" />
+    <result column="login_ip" property="loginIp" jdbcType="VARCHAR" />
+    <result column="login_date" property="loginDate" jdbcType="TIMESTAMP" />
+    <result column="login_flag" property="loginFlag" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="del_flag" property="delFlag" jdbcType="CHAR" />
+    <result column="sex" property="sex" jdbcType="CHAR" />
+    <result column="job" property="job" jdbcType="VARCHAR" />
+    <result column="entry_date" property="entryDate" jdbcType="TIMESTAMP" />
+    <result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="basic_salary" property="basicSalary" jdbcType="DECIMAL" />
+    <result column="app_login_flag" property="appLoginFlag" jdbcType="CHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="vacation_begin_time" property="vacationBeginTime" jdbcType="TIMESTAMP" />
+    <result column="vacation_end_time" property="vacationEndTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, company_id, office_id, login_name, password, no, name, email, phone, mobile, 
+    user_type, photo, login_ip, login_date, login_flag, create_by, create_date, update_by, 
+    update_date, remarks, del_flag, sex, job, entry_date, birthday, basic_salary, app_login_flag, 
+    status, vacation_begin_time, vacation_end_time
+  </sql>
+  <sql id="condition" >
+    <if test="null!=params" >
+      <if test="params.id != null" >
+        and id = ${r'#'}{params.id,jdbcType=INTEGER}
+      </if>
+      <if test="params.companyId != null" >
+        and company_id = ${r'#'}{params.companyId,jdbcType=INTEGER}
+      </if>
+      <if test="params.officeId != null" >
+        and office_id = ${r'#'}{params.officeId,jdbcType=INTEGER}
+      </if>
+      <if test="params.loginName != null and '' != params.loginName" >
+        and login_name = ${r'#'}{params.loginName,jdbcType=VARCHAR}
+      </if>
+      <if test="params.password != null and '' != params.password" >
+        and password = ${r'#'}{params.password,jdbcType=VARCHAR}
+      </if>
+      <if test="params.no != null and '' != params.no" >
+        and no = ${r'#'}{params.no,jdbcType=VARCHAR}
+      </if>
+      <if test="params.name != null and '' != params.name" >
+        and name = ${r'#'}{params.name,jdbcType=VARCHAR}
+      </if>
+      <if test="params.email != null and '' != params.email" >
+        and email = ${r'#'}{params.email,jdbcType=VARCHAR}
+      </if>
+      <if test="params.phone != null and '' != params.phone" >
+        and phone = ${r'#'}{params.phone,jdbcType=VARCHAR}
+      </if>
+      <if test="params.mobile != null and '' != params.mobile" >
+        and mobile = ${r'#'}{params.mobile,jdbcType=VARCHAR}
+      </if>
+      <if test="params.userType != null and '' != params.userType" >
+        and user_type = ${r'#'}{params.userType,jdbcType=CHAR}
+      </if>
+      <if test="params.photo != null and '' != params.photo" >
+        and photo = ${r'#'}{params.photo,jdbcType=VARCHAR}
+      </if>
+      <if test="params.loginIp != null and '' != params.loginIp" >
+        and login_ip = ${r'#'}{params.loginIp,jdbcType=VARCHAR}
+      </if>
+      <if test="params.loginDate != null" >
+        and login_date = ${r'#'}{params.loginDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="params.loginFlag != null and '' != params.loginFlag" >
+        and login_flag = ${r'#'}{params.loginFlag,jdbcType=VARCHAR}
+      </if>
+      <if test="params.createBy != null and '' != params.createBy" >
+        and create_by = ${r'#'}{params.createBy,jdbcType=VARCHAR}
+      </if>
+      <if test="params.createDate != null" >
+        and create_date = ${r'#'}{params.createDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="params.updateBy != null and '' != params.updateBy" >
+        and update_by = ${r'#'}{params.updateBy,jdbcType=VARCHAR}
+      </if>
+      <if test="params.updateDate != null" >
+        and update_date = ${r'#'}{params.updateDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="params.remarks != null and '' != params.remarks" >
+        and remarks = ${r'#'}{params.remarks,jdbcType=VARCHAR}
+      </if>
+      <if test="params.delFlag != null and '' != params.delFlag" >
+        and del_flag = ${r'#'}{params.delFlag,jdbcType=CHAR}
+      </if>
+      <if test="params.sex != null and '' != params.sex" >
+        and sex = ${r'#'}{params.sex,jdbcType=CHAR}
+      </if>
+      <if test="params.job != null and '' != params.job" >
+        and job = ${r'#'}{params.job,jdbcType=VARCHAR}
+      </if>
+      <if test="params.entryDate != null" >
+        and entry_date = ${r'#'}{params.entryDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="params.birthday != null" >
+        and birthday = ${r'#'}{params.birthday,jdbcType=TIMESTAMP}
+      </if>
+      <if test="params.basicSalary != null" >
+        and basic_salary = ${r'#'}{params.basicSalary,jdbcType=DECIMAL}
+      </if>
+      <if test="params.appLoginFlag != null and '' != params.appLoginFlag" >
+        and app_login_flag = ${r'#'}{params.appLoginFlag,jdbcType=CHAR}
+      </if>
+      <if test="params.status != null" >
+        and status = ${r'#'}{params.status,jdbcType=TINYINT}
+      </if>
+      <if test="params.vacationBeginTime != null" >
+        and vacation_begin_time = ${r'#'}{params.vacationBeginTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="params.vacationEndTime != null" >
+        and vacation_end_time = ${r'#'}{params.vacationEndTime,jdbcType=TIMESTAMP}
+      </if>
+    </if>
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where id = ${r'#'}{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByParams" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where 1=1
+    <include refid="condition" />
+  </select>
+  <select id="selectCount" resultType="java.lang.Integer" >
+    select count(1) as s from sys_user where 1=1
+    <include refid="condition" />
+  </select>
+  <select id="selectByPage" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where 1=1
+    <include refid="condition" />
+    <if test="orderByField != null and ''!=orderByField" >
+      order by ${r'${orderByField}'}
+      <if test="orderByField" >
+        ${r'${orderBy}'}
+      </if>
+    </if>
+    limit ${r'#'}{page.startRowNum} ,${r'#'}{page.pageSize}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_user
+    where id = ${r'#'}{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByPrimarayKeyForModel" parameterType="${packageName}.${subPackageName}.app.client.sys.dto.SysUser" >
+    delete from sys_user
+    where id = ${r'#'}{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="${packageName}.${subPackageName}.app.client.sys.dto.SysUser" >
+    insert into sys_user (id, company_id, office_id, 
+      login_name, password, no, 
+      name, email, phone, 
+      mobile, user_type, photo, 
+      login_ip, login_date, login_flag, 
+      create_by, create_date, update_by, 
+      update_date, remarks, del_flag, 
+      sex, job, entry_date, 
+      birthday, basic_salary, app_login_flag, 
+      status, vacation_begin_time, vacation_end_time
+      )
+    values (${r'#'}{id,jdbcType=INTEGER}, ${r'#'}{companyId,jdbcType=INTEGER}, ${r'#'}{officeId,jdbcType=INTEGER}, 
+      ${r'#'}{loginName,jdbcType=VARCHAR}, ${r'#'}{password,jdbcType=VARCHAR}, ${r'#'}{no,jdbcType=VARCHAR}, 
+      ${r'#'}{name,jdbcType=VARCHAR}, ${r'#'}{email,jdbcType=VARCHAR}, ${r'#'}{phone,jdbcType=VARCHAR}, 
+      ${r'#'}{mobile,jdbcType=VARCHAR}, ${r'#'}{userType,jdbcType=CHAR}, ${r'#'}{photo,jdbcType=VARCHAR}, 
+      ${r'#'}{loginIp,jdbcType=VARCHAR}, ${r'#'}{loginDate,jdbcType=TIMESTAMP}, ${r'#'}{loginFlag,jdbcType=VARCHAR}, 
+      ${r'#'}{createBy,jdbcType=VARCHAR}, ${r'#'}{createDate,jdbcType=TIMESTAMP}, ${r'#'}{updateBy,jdbcType=VARCHAR}, 
+      ${r'#'}{updateDate,jdbcType=TIMESTAMP}, ${r'#'}{remarks,jdbcType=VARCHAR}, ${r'#'}{delFlag,jdbcType=CHAR}, 
+      ${r'#'}{sex,jdbcType=CHAR}, ${r'#'}{job,jdbcType=VARCHAR}, ${r'#'}{entryDate,jdbcType=TIMESTAMP}, 
+      ${r'#'}{birthday,jdbcType=TIMESTAMP}, ${r'#'}{basicSalary,jdbcType=DECIMAL}, ${r'#'}{appLoginFlag,jdbcType=CHAR}, 
+      ${r'#'}{status,jdbcType=TINYINT}, ${r'#'}{vacationBeginTime,jdbcType=TIMESTAMP}, ${r'#'}{vacationEndTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="${packageName}.${subPackageName}.app.client.sys.dto.SysUser" >
+    insert into sys_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="officeId != null" >
+        office_id,
+      </if>
+      <if test="loginName != null" >
+        login_name,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="no != null" >
+        no,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="userType != null" >
+        user_type,
+      </if>
+      <if test="photo != null" >
+        photo,
+      </if>
+      <if test="loginIp != null" >
+        login_ip,
+      </if>
+      <if test="loginDate != null" >
+        login_date,
+      </if>
+      <if test="loginFlag != null" >
+        login_flag,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="job != null" >
+        job,
+      </if>
+      <if test="entryDate != null" >
+        entry_date,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="basicSalary != null" >
+        basic_salary,
+      </if>
+      <if test="appLoginFlag != null" >
+        app_login_flag,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="vacationBeginTime != null" >
+        vacation_begin_time,
+      </if>
+      <if test="vacationEndTime != null" >
+        vacation_end_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ${r'#'}{id,jdbcType=INTEGER},
+      </if>
+      <if test="companyId != null" >
+        ${r'#'}{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="officeId != null" >
+        ${r'#'}{officeId,jdbcType=INTEGER},
+      </if>
+      <if test="loginName != null" >
+        ${r'#'}{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        ${r'#'}{password,jdbcType=VARCHAR},
+      </if>
+      <if test="no != null" >
+        ${r'#'}{no,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        ${r'#'}{name,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        ${r'#'}{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        ${r'#'}{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        ${r'#'}{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null" >
+        ${r'#'}{userType,jdbcType=CHAR},
+      </if>
+      <if test="photo != null" >
+        ${r'#'}{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="loginIp != null" >
+        ${r'#'}{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="loginDate != null" >
+        ${r'#'}{loginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginFlag != null" >
+        ${r'#'}{loginFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        ${r'#'}{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        ${r'#'}{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        ${r'#'}{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        ${r'#'}{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        ${r'#'}{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        ${r'#'}{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="sex != null" >
+        ${r'#'}{sex,jdbcType=CHAR},
+      </if>
+      <if test="job != null" >
+        ${r'#'}{job,jdbcType=VARCHAR},
+      </if>
+      <if test="entryDate != null" >
+        ${r'#'}{entryDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="birthday != null" >
+        ${r'#'}{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="basicSalary != null" >
+        ${r'#'}{basicSalary,jdbcType=DECIMAL},
+      </if>
+      <if test="appLoginFlag != null" >
+        ${r'#'}{appLoginFlag,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        ${r'#'}{status,jdbcType=TINYINT},
+      </if>
+      <if test="vacationBeginTime != null" >
+        ${r'#'}{vacationBeginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vacationEndTime != null" >
+        ${r'#'}{vacationEndTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="${packageName}.${subPackageName}.app.client.sys.dto.SysUser" >
+    update sys_user
+    <set >
+      <if test="companyId != null" >
+        company_id = ${r'#'}{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="officeId != null" >
+        office_id = ${r'#'}{officeId,jdbcType=INTEGER},
+      </if>
+      <if test="loginName != null" >
+        login_name = ${r'#'}{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = ${r'#'}{password,jdbcType=VARCHAR},
+      </if>
+      <if test="no != null" >
+        no = ${r'#'}{no,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = ${r'#'}{name,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = ${r'#'}{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = ${r'#'}{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = ${r'#'}{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null" >
+        user_type = ${r'#'}{userType,jdbcType=CHAR},
+      </if>
+      <if test="photo != null" >
+        photo = ${r'#'}{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="loginIp != null" >
+        login_ip = ${r'#'}{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="loginDate != null" >
+        login_date = ${r'#'}{loginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginFlag != null" >
+        login_flag = ${r'#'}{loginFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        create_by = ${r'#'}{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = ${r'#'}{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by = ${r'#'}{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        update_date = ${r'#'}{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        remarks = ${r'#'}{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = ${r'#'}{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="sex != null" >
+        sex = ${r'#'}{sex,jdbcType=CHAR},
+      </if>
+      <if test="job != null" >
+        job = ${r'#'}{job,jdbcType=VARCHAR},
+      </if>
+      <if test="entryDate != null" >
+        entry_date = ${r'#'}{entryDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="birthday != null" >
+        birthday = ${r'#'}{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="basicSalary != null" >
+        basic_salary = ${r'#'}{basicSalary,jdbcType=DECIMAL},
+      </if>
+      <if test="appLoginFlag != null" >
+        app_login_flag = ${r'#'}{appLoginFlag,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        status = ${r'#'}{status,jdbcType=TINYINT},
+      </if>
+      <if test="vacationBeginTime != null" >
+        vacation_begin_time = ${r'#'}{vacationBeginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vacationEndTime != null" >
+        vacation_end_time = ${r'#'}{vacationEndTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = ${r'#'}{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="${packageName}.${subPackageName}.app.client.sys.dto.SysUser" >
+    update sys_user
+    set company_id = ${r'#'}{companyId,jdbcType=INTEGER},
+      office_id = ${r'#'}{officeId,jdbcType=INTEGER},
+      login_name = ${r'#'}{loginName,jdbcType=VARCHAR},
+      password = ${r'#'}{password,jdbcType=VARCHAR},
+      no = ${r'#'}{no,jdbcType=VARCHAR},
+      name = ${r'#'}{name,jdbcType=VARCHAR},
+      email = ${r'#'}{email,jdbcType=VARCHAR},
+      phone = ${r'#'}{phone,jdbcType=VARCHAR},
+      mobile = ${r'#'}{mobile,jdbcType=VARCHAR},
+      user_type = ${r'#'}{userType,jdbcType=CHAR},
+      photo = ${r'#'}{photo,jdbcType=VARCHAR},
+      login_ip = ${r'#'}{loginIp,jdbcType=VARCHAR},
+      login_date = ${r'#'}{loginDate,jdbcType=TIMESTAMP},
+      login_flag = ${r'#'}{loginFlag,jdbcType=VARCHAR},
+      create_by = ${r'#'}{createBy,jdbcType=VARCHAR},
+      create_date = ${r'#'}{createDate,jdbcType=TIMESTAMP},
+      update_by = ${r'#'}{updateBy,jdbcType=VARCHAR},
+      update_date = ${r'#'}{updateDate,jdbcType=TIMESTAMP},
+      remarks = ${r'#'}{remarks,jdbcType=VARCHAR},
+      del_flag = ${r'#'}{delFlag,jdbcType=CHAR},
+      sex = ${r'#'}{sex,jdbcType=CHAR},
+      job = ${r'#'}{job,jdbcType=VARCHAR},
+      entry_date = ${r'#'}{entryDate,jdbcType=TIMESTAMP},
+      birthday = ${r'#'}{birthday,jdbcType=TIMESTAMP},
+      basic_salary = ${r'#'}{basicSalary,jdbcType=DECIMAL},
+      app_login_flag = ${r'#'}{appLoginFlag,jdbcType=CHAR},
+      status = ${r'#'}{status,jdbcType=TINYINT},
+      vacation_begin_time = ${r'#'}{vacationBeginTime,jdbcType=TIMESTAMP},
+      vacation_end_time = ${r'#'}{vacationEndTime,jdbcType=TIMESTAMP}
+    where id = ${r'#'}{id,jdbcType=INTEGER}
+  </update>
+</mapper>

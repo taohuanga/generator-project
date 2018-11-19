@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>dao</name>
+	<project>server</project>
+	<filePath>src/test/java/${packageName}/server/${moduleName}/dao</filePath>
+	<fileName>${ClassName}MapperTest.java</fileName>
+	<content><![CDATA[
+package ${packageName}.server.${moduleName}.dao;
+
+import javax.annotation.Resource;
+
+import org.junit.Test;
+
+import ${packageName}.client.${moduleName}.dto.${ClassName};
+import ${packageName}.server.BaseServiceTest;
+import ${packageName}.server.${moduleName}.dao.${ClassName}Mapper;
+<#list table.importList as i>
+import ${i};
+</#list>
+
+/**
+ * ${table.name} 数据库操作接口测试用例
+ * 
+ * @author ${author}
+ * @date ${dateTime}
+ * @version ${versionName}
+ * @copyright facegarden.com
+ */
+public class ${ClassName}MapperTest extends BaseServiceTest {
+	
+	@Resource
+	private ${ClassName}Mapper mapper;
+	
+	@Test
+	public void insertSelective() {
+		${ClassName} entity = new ${ClassName}();
+		<#list table.columnList as c>
+		// ${c.comments}
+		entity.set${c.dxJavaField}(<#if c.simpleJavaType == 'String'>""</#if><#if c.simpleJavaType == 'Integer'>1</#if><#if c.simpleJavaType == 'Long'>1L</#if><#if c.simpleJavaType == 'Date'>new Date()</#if><#if c.simpleJavaType == 'BigDecimal'>BigDecimal.ONE</#if><#if c.simpleJavaType == 'Double'>1d</#if><#if c.simpleJavaType == 'Short'>(short) 1</#if><#if c.simpleJavaType == 'Byte'>(byte) 1</#if>);
+		</#list>
+		int count = mapper.insertSelective(entity);
+		System.out.println(count);
+	}
+	
+	@Test
+	public void deleteByPrimaryKey() {
+		int count = mapper.deleteByPrimaryKey(1 + "");
+		System.out.println(count);
+	}
+	
+	@Test
+	public void updateByPrimaryKeySelective() {
+		${ClassName} entity = new ${ClassName}();
+		<#list table.columnList as c>
+		// ${c.comments}
+		entity.set${c.dxJavaField}(<#if c.simpleJavaType == 'String'>""</#if><#if c.simpleJavaType == 'Integer'>1</#if><#if c.simpleJavaType == 'Long'>1L</#if><#if c.simpleJavaType == 'Date'>new Date()</#if><#if c.simpleJavaType == 'BigDecimal'>BigDecimal.ONE</#if><#if c.simpleJavaType == 'Double'>1d</#if><#if c.simpleJavaType == 'Short'>(short) 1</#if><#if c.simpleJavaType == 'Byte'>(byte) 1</#if>);
+		</#list>
+		int count = mapper.updateByPrimaryKeySelective(entity);
+		System.out.println(count);
+	}
+	
+	@Test
+	public void selectByPrimaryKey() {
+		${ClassName} entity = new ${ClassName}();
+		entity.setId("1");
+		entity = mapper.selectByPrimaryKey(entity);
+		System.out.println(entity);
+	}
+	
+}]]>
+	</content>
+</template>

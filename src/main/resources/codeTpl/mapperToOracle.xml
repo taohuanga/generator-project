@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>mapper</name>
+	<project>server</project>
+	<filePath>src/main/resources/mapper/${moduleName}</filePath>
+	<fileName>${ClassName}Mapper.xml</fileName>
+	<content><![CDATA[
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="${packageName}.server.${moduleName}.dao.${ClassName}Mapper" >
+  	<resultMap id="BaseResultMap" type="${packageName}.client.${moduleName}.dto.${ClassName}" >
+	<#list table.columnList as c>
+	<#if c.isPk == "1">
+		<id column="${c.upperName}" property="${c.javaFieldId}" jdbcType="${c.jdbcType}" />
+	</#if>
+	<#if c.isPk == "0">
+		<result column="${c.upperName}" property="${c.javaFieldId}" jdbcType="${c.jdbcType}" />
+	</#if>
+	</#list>
+  	</resultMap>
+  	<sql id="Base_Column_List" >
+  	<#assign insertField>
+  	<#list table.columnList as c>T.${c.upperName}, </#list>
+  	</#assign>
+  	${insertField?substring(0, insertField?last_index_of(","))}
+  	</sql>
+	<sql id="condition" >
+    	<if test="null!=params" >
+    		<#list table.columnList as c>   		
+      		<if test="params.${c.javaFieldId} != null<#if c.simpleJavaType == 'String'> and '' != params.${c.javaFieldId}</#if>" >
+        		AND T.${c.upperName} = ${"#"}{params.${c.javaFieldId},jdbcType=${c.jdbcType}}
+      		</if>
+      		</#list>
+      	</if>
+  	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM ${table.upperName} T
+		WHERE T.ID = ${"#"}{id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByParams" resultMap="BaseResultMap" parameterType="map" >
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM ${table.upperName} T 
+		WHERE 1=1 
+		<include refid="condition" />
+	</select>
+	<select id="selectCount" resultType="java.lang.Integer" >
+	  	SELECT COUNT(1) as s FROM ${table.upperName} T WHERE 1=1
+	  	<include refid="condition" />
+	</select>
+	<select id="selectByPage" resultMap="BaseResultMap" parameterType="map" >
+		SELECT B.* from (SELECT A.*,ROWNUM rn FROM( SELECT 
+		<include refid="Base_Column_List" />
+		FROM ${table.upperName} T WHERE 1=1 
+		<include refid="condition" />
+		<if test="orderByField != null and ''!=orderByField" >
+			ORDER BY ${"$"}{orderByField}
+			<if test="orderByField" >
+			${"$"}{orderBy}
+			</if>
+		</if>
+		) A WHERE ROWNUM &lt; ${"#"}{page.endRowNum}) B WHERE rn &gt; ${"#"}{page.startRowNum}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+	  	DELETE FROM ${table.upperName}
+	  	WHERE ID = ${"#"}{id,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteByPrimarayKeyForModel" parameterType="${packageName}.client.${moduleName}.dto.${ClassName}" >
+	  	DELETE FROM ${table.upperName}
+	  	WHERE ID = ${"#"}{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="${packageName}.client.${moduleName}.dto.${ClassName}">
+    	INSERT INTO ${table.upperName} (
+		<#assign insertField>
+		<#list table.columnList as c>
+			${c.upperName},
+		</#list>
+		</#assign>
+		${insertField?substring(0, insertField?last_index_of(","))}
+    	)
+    	VALUES (
+    	<#assign insertJavaField>
+    	<#list table.columnList as c>
+			${"#"}{${c.javaFieldId},jdbcType=${c.jdbcType}},
+		</#list>
+		</#assign>
+		${insertJavaField?substring(0, insertJavaField?last_index_of(","))}
+		)
+  	</insert>
+	<insert id="insertSelective" parameterType="${packageName}.client.${moduleName}.dto.${ClassName}">
+    	INSERT INTO ${table.upperName} 
+    	<trim prefix="(" suffix=")" suffixOverrides="," >
+      	<#list table.columnList as c>
+      		<if test="${c.javaFieldId} != null<#if c.simpleJavaType == 'String'> and '' != ${c.javaFieldId}</#if>" >
+      			${c.upperName},
+      		</if>
+	  	</#list>
+    	</trim>
+    	<trim prefix="values (" suffix=")" suffixOverrides="," >
+      	<#list table.columnList as c>
+      		<if test="${c.javaFieldId} != null<#if c.simpleJavaType == 'String'> and '' != ${c.javaFieldId}</#if>" >
+	  			${"#"}{${c.javaFieldId},jdbcType=${c.jdbcType}},
+	  		</if>
+	  	</#list>
+    	</trim>
+  	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="${packageName}.client.${moduleName}.dto.${ClassName}" >
+    	UPDATE ${table.upperName} 
+	    <set >
+	    	<#list table.columnList as c>
+	      	<if test="${c.javaFieldId} != null<#if c.simpleJavaType == 'String'> and '' != ${c.javaFieldId}</#if>" >
+	        	${c.upperName} = ${"#"}{${c.javaFieldId},jdbcType=${c.jdbcType}},
+	      	</if>
+	      	</#list>
+    	</set>
+    	WHERE ID = ${"#"}{id,jdbcType=VARCHAR}
+  	</update>
+  	<update id="updateByPrimaryKey" parameterType="${packageName}.client.${moduleName}.dto.${ClassName}" >
+    	UPDATE ${table.upperName} 
+    	SET 
+      	<#assign insertField>
+      	<#list table.columnList as c>
+      		${c.upperName} = ${"#"}{${c.javaFieldId},jdbcType=${c.jdbcType}},
+      	</#list>
+      	</#assign>
+      	${insertJavaField?substring(0, insertJavaField?last_index_of(","))} 
+    	WHERE ID = ${"#"}{id,jdbcType=VARCHAR}
+  	</update>
+</mapper>]]>
+	</content>
+</template>

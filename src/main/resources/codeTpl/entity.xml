@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>entity</name>
+	<project>client</project>
+	<filePath>src/main/java/${packageName}/client/${moduleName}/dto</filePath>
+	<fileName>${ClassName}.java</fileName>
+	<content><![CDATA[
+package ${packageName}.client.${moduleName}.dto;
+
+import java.io.Serializable;
+<#list table.importList as i>
+import ${i};
+</#list>
+
+import lombok.Getter;
+import lombok.Setter;
+
+/**
+ * 
+ * @author ${author}
+ * @date ${dateTime}
+ * @version ${versionName}
+ * @copyright facegarden.com
+ */
+@Setter @Getter
+public class ${ClassName} implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+	
+	<#-- 生成字段属性 -->
+	<#list table.columnList as c>
+	/**
+     * <#if c.comments??>${c.comments}</#if>.
+     */
+	private ${c.simpleJavaType} ${c.simpleJavaField};
+	
+	</#list>
+	
+}]]>
+	</content>
+</template>
