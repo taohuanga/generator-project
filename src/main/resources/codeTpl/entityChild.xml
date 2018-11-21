@@ -3,7 +3,7 @@
 	<name>entity</name>
 	<project>client</project>
 	<filePath>src/main/java/${packageName}/client/${moduleName}/dto</filePath>
-	<fileName>${ClassName}.java</fileName>
+	<fileName>${ClassName}Child.java</fileName>
 	<content><![CDATA[
 package ${packageName}.client.${moduleName}.dto;
 
@@ -16,7 +16,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * 
+ *
  * @author ${author}
  * @date ${dateTime}
  * @version ${versionName}
@@ -26,8 +26,8 @@ import lombok.Setter;
 public class ${ClassName}Child extends ${ClassName} implements Serializable {
 
     private static final long serialVersionUID = 1L;
-	
-	
+
+
 }]]>
 	</content>
 </template>
