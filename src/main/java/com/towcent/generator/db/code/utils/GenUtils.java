@@ -44,25 +44,25 @@ public class GenUtils {
 			if (StringUtils.isBlank(column.getComments())){
 				column.setComments(column.getName());
 			}
-			
+
 			column.setSimpleJavaType(getJavaSimpleType(column.getJdbcType()));
-			
+
 			// 设置java类型
 			column.setJdbcType(getJdbcType(column.getJdbcType()));
-			
+
 			// 设置java字段名
 			column.setJavaField(StringUtils.toCamelCase(column.getName()));
-			
+
 			// 是否是主键
 			column.setIsPk(genTable.getPkList().contains(column.getName())?"1":"0");
-			
+
 			// 设置特定类型和字段名
-			
+
 			column.setDxJavaField(StringUtils.toCapitalizeCamelCase(column.getName()));
 			column.setUpperName(StringUtils.upperCase(column.getName()));
 		}
 	}
-	
+
 	private static String getJdbcType(String jdbcType) {
 		if (StringUtils.endsWith(Global.getConfig("jdbc.type"), "mysql")) {
 			if (StringUtils.startsWithIgnoreCase(jdbcType, "int")) {
@@ -130,11 +130,11 @@ public class GenUtils {
 				return "TIMESTAMP";
 			} else if (StringUtils.startsWithIgnoreCase(jdbcType, "blob")) {
 				return "BLOB";
-			} 
+			}
 		}
 		return "VARCHAR";
 	}
-	
+
 	private static String getJavaSimpleType(String jdbcType) {
 		if (StringUtils.endsWith(Global.getConfig("jdbc.type"), "mysql")) {
 			if (StringUtils.startsWithIgnoreCase(jdbcType, "int")) {
@@ -204,11 +204,11 @@ public class GenUtils {
 				return "BigDecimal";
 			} else if (StringUtils.startsWithIgnoreCase(jdbcType, "blob")) {
 				return "Object";
-			} 
+			}
 		}
 		return "String";
 	}
-	
+
 	/**
 	 * 获取模板路径
 	 * @return
@@ -217,16 +217,16 @@ public class GenUtils {
 		try{
 			File file = new DefaultResourceLoader().getResource("").getFile();
 			if(file != null){
-				return file.getAbsolutePath() + File.separator + StringUtils.replaceEach(GenUtils.class.getName(), 
+				return file.getAbsolutePath() + File.separator + StringUtils.replaceEach(GenUtils.class.getName(),
 						new String[]{"util."+GenUtils.class.getSimpleName(), "."}, new String[]{"template", File.separator});
-			}			
+			}
 		}catch(Exception e){
 			logger.error("{}", e);
 		}
 
 		return "";
 	}
-	
+
 	/**
 	 * XML文件转换为对象
 	 * @param fileName
@@ -238,10 +238,10 @@ public class GenUtils {
 		try {
 			String pathName = "/codeTpl/" + fileName;
 			//	logger.debug("File to object: {}", pathName);
-			Resource resource = new ClassPathResource(pathName); 
+			Resource resource = new ClassPathResource(pathName);
 			InputStream is = resource.getInputStream();
 			BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-			StringBuilder sb = new StringBuilder();  
+			StringBuilder sb = new StringBuilder();
 			while (true) {
 				String line = br.readLine();
 				if (line == null){
@@ -270,28 +270,34 @@ public class GenUtils {
 	 */
 	public static List<GenTemplate> getTemplateList(String flag){
 		List<GenTemplate> templateList = Lists.newArrayList();
-		templateList.add((GenTemplate) fileToObject("entity.xml", GenTemplate.class));
-		templateList.add((GenTemplate) fileToObject("dao.xml", GenTemplate.class));
-		if("true".equals(flag)){
-			templateList.add((GenTemplate) fileToObject("service.xml", GenTemplate.class));
-			templateList.add((GenTemplate) fileToObject("serviceImpl.xml", GenTemplate.class));
-		}
-		if ("mysql".equals(Global.getConfig("jdbc.type"))) {
-			templateList.add((GenTemplate) fileToObject("mapper.xml", GenTemplate.class));
-			//根据配置判断是否生成扩展
+		if("one".equals(flag)){
+			templateList.add((GenTemplate) fileToObject("entityChild.xml", GenTemplate.class));
+		}else{
+			templateList.add((GenTemplate) fileToObject("entity.xml", GenTemplate.class));
 			if("true".equals(flag)){
-				templateList.add((GenTemplate) fileToObject("daoChild.xml", GenTemplate.class));
-				templateList.add((GenTemplate) fileToObject("mapperChild.xml", GenTemplate.class));
+				templateList.add((GenTemplate) fileToObject("entityChild.xml", GenTemplate.class));
 			}
-			templateList.add((GenTemplate) fileToObject("mapperTest.xml", GenTemplate.class));
-		} else {
-			templateList.add((GenTemplate) fileToObject("mapperToOracle.xml", GenTemplate.class));
-			templateList.add((GenTemplate) fileToObject("mapperOracleTest.xml", GenTemplate.class));
+			templateList.add((GenTemplate) fileToObject("dao.xml", GenTemplate.class));
+			if("true".equals(flag)){
+				templateList.add((GenTemplate) fileToObject("service.xml", GenTemplate.class));
+				templateList.add((GenTemplate) fileToObject("serviceImpl.xml", GenTemplate.class));
+			}
+			if ("mysql".equals(Global.getConfig("jdbc.type"))) {
+				templateList.add((GenTemplate) fileToObject("mapper.xml", GenTemplate.class));
+				//根据配置判断是否生成扩展
+				if("true".equals(flag)){
+					templateList.add((GenTemplate) fileToObject("daoChild.xml", GenTemplate.class));
+					templateList.add((GenTemplate) fileToObject("mapperChild.xml", GenTemplate.class));
+				}
+				templateList.add((GenTemplate) fileToObject("mapperTest.xml", GenTemplate.class));
+			} else {
+				templateList.add((GenTemplate) fileToObject("mapperToOracle.xml", GenTemplate.class));
+				templateList.add((GenTemplate) fileToObject("mapperOracleTest.xml", GenTemplate.class));
+			}
 		}
-		
 		return templateList;
 	}
-	
+
 	/**
 	 * 获取数据模型
 	 * @param genScheme
@@ -299,23 +305,23 @@ public class GenUtils {
 	 */
 	public static Map<String, Object> getDataModel(GenTable table){
 		Map<String, Object> model = Maps.newHashMap();
-		
+
 		model.put("packageName", Global.getConfig("project.package"));
 		model.put("moduleName", Global.getConfig("project.module"));
 		model.put("className", StringUtils.toCamelCase(table.getName()));
 		model.put("ClassName", StringUtils.toCapitalizeCamelCase(table.getName()));
-		
+
 		model.put("author", Global.getConfig("project.author"));
 		model.put("versionName", Global.getConfig("project.version"));
 		model.put("dateTime", DateUtils.formatDateTime(new Date()));
-		
+
 		model.put("dbType", Global.getConfig("jdbc.type"));
 
 		model.put("table", table);
-		
+
 		return model;
 	}
-	
+
 	/**
 	 * 生成到文件
 	 * @param tpl
@@ -328,20 +334,20 @@ public class GenUtils {
 		projectPath = StringUtils.substringBeforeLast(projectPath, "-");
 		// 获取生成文件
 		String fileName = projectPath + "-" + tpl.getProject() + File.separator
-				+ StringUtils.replaceEach(FreeMarkers.renderString(tpl.getFilePath() + "/", model), 
-						new String[]{"//", "/", "."}, new String[]{File.separator, File.separator, File.separator})
+				+ StringUtils.replaceEach(FreeMarkers.renderString(tpl.getFilePath() + "/", model),
+				new String[]{"//", "/", "."}, new String[]{File.separator, File.separator, File.separator})
 				+ FreeMarkers.renderString(tpl.getFileName(), model);
 		logger.debug(" fileName === " + fileName);
 
 		// 获取生成文件内容
 		String content = FreeMarkers.renderString(StringUtils.trimToEmpty(tpl.getContent()), model);
 		logger.debug(" content === \r\n" + content);
-		
+
 		// 如果选择替换文件，则删除原文件
 		if (isReplaceFile){
 			FileUtils.deleteFile(fileName);
 		}
-		
+
 		// 创建并写入文件
 		if (FileUtils.createFile(fileName)){
 			FileUtils.writeToFile(fileName, content, true);
@@ -352,11 +358,11 @@ public class GenUtils {
 			return "文件已存在："+fileName+"<br/>";
 		}
 	}
-	
+
 	public static void generateCode(GenDataBaseDictDao dao){
 		StringBuilder result = new StringBuilder();
 		List<GenTable> genTables = Lists.newArrayList();
-		
+
 		String[] tabs = StringUtils.split(Global.getConfig("project.tables"), ",");
 		// 查询主表及字段列
 		for (String table : tabs) {
@@ -364,16 +370,16 @@ public class GenUtils {
 			genTable.setName(table);
 			List<GenTable> list = dao.findTableList(genTable);
 			if (CollectionUtils.isEmpty(list)) continue;
-			
+
 			GenTable tmpTab = list.get(0);
 			tmpTab.setColumnList(dao.findTableColumnList(genTable));
 			tmpTab.setPkList(dao.findTablePK(genTable));
 			genTables.add(tmpTab);
 		}
-		
+
 		// 获取模板列表
 		List<GenTemplate> templateList = GenUtils.getTemplateList(Global.getConfig("project.all"));
-		
+
 		// 生成主表模板代码
 		for (GenTable table : genTables) {
 			GenUtils.initColumnField(table);
