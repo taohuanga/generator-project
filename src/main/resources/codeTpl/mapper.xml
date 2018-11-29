@@ -24,6 +24,14 @@
   	</#assign>
   	${insertField?substring(0, insertField?last_index_of(","))}
   	</sql>
+
+  	<sql id="Base_Column_List2" >
+  	<#assign insertField>
+  	<#list table.columnList as c>a.${c.name}, </#list>
+  	</#assign>
+  	${insertField?substring(0, insertField?last_index_of(","))}
+  	</sql>
+
 	<sql id="condition" >
     	<if test="null!=params" >
     		<#list table.columnList as c>
@@ -33,14 +41,24 @@
       		</#list>
       	</if>
   	</sql>
+
+  	<sql id="condition2" >
+    	<if test="null!=params" >
+    		<#list table.columnList as c>
+      		<if test="params.${c.javaFieldId} != null<#if c.simpleJavaType == 'String'> and '' != params.${c.javaFieldId}</#if>" >
+        		and a.${c.name} = ${"#"}{params.${c.javaFieldId},jdbcType=${c.jdbcType}}
+      		</if>
+      		</#list>
+      	</if>
+  	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" >
-		select 
+		select
 		<include refid="Base_Column_List" />
-		from ${table.name} 
+		from ${table.name}
 		where id = ${"#"}{id,jdbcType=INTEGER}
 	</select>
 	<select id="selectByParams" resultMap="BaseResultMap" parameterType="map" >
-		select 
+		select
 		<include refid="Base_Column_List" />
 		from ${table.name}
 		<where>
@@ -48,7 +66,7 @@
 		</where>
 	</select>
 	<select id="selectOne" resultMap="BaseResultMap" parameterType="map" >
-		select 
+		select
 		<include refid="Base_Column_List" />
 		from ${table.name}
 		<where>
@@ -57,20 +75,20 @@
 		limit 0,1
 	</select>
 	<select id="selectCount" resultType="java.lang.Integer" >
-	  	select count(1) as s from ${table.name}  
+	  	select count(1) as s from ${table.name}
 		<where>
 	  		<include refid="${packageName}.server.${moduleName}.dao.${ClassName}ChildMapper.condition" />
 	  	</where>
 	</select>
 	<select id="selectByPage" resultMap="BaseResultMap" parameterType="com.towcent.base.common.page.SimplePage" >
-	  	select 
+	  	select
 	  	<include refid="Base_Column_List" />
-	  	from ${table.name} 
+	  	from ${table.name}
 	  	<where>
 	  	<include refid="${packageName}.server.${moduleName}.dao.${ClassName}ChildMapper.condition" />
 	  	</where>
 	  	<if test="orderByField != null and ''!=orderByField" >
-	    	order by ${"$"}{orderByField} 
+	    	order by ${"$"}{orderByField}
 	    	<if test="orderByField" >
 	      	${"$"}{orderBy}
 	    	</if>
@@ -100,7 +118,7 @@
 		)
   	</insert>
 	<insert id="insertSelective" parameterType="${packageName}.client.${moduleName}.dto.${ClassName}" useGeneratedKeys="true" keyProperty="id" >
-    	insert into ${table.name} 
+    	insert into ${table.name}
     	<trim prefix="(" suffix=")" suffixOverrides="," >
       	<#list table.columnList as c>
       		<if test="${c.javaFieldId} != null<#if c.simpleJavaType == 'String'> and '' != ${c.javaFieldId}</#if>" >
@@ -117,7 +135,7 @@
     	</trim>
   	</insert>
 	<update id="updateByPrimaryKeySelective" parameterType="${packageName}.client.${moduleName}.dto.${ClassName}" >
-    	update ${table.name} 
+    	update ${table.name}
 	    <set>
 	    	<#list table.columnList as c>
 	      	<if test="${c.javaFieldId} != null<#if c.simpleJavaType == 'String'> and '' != ${c.javaFieldId}</#if>" >
@@ -128,14 +146,14 @@
     	where id = ${"#"}{id,jdbcType=INTEGER}
   	</update>
   	<update id="updateByPrimaryKey" parameterType="${packageName}.client.${moduleName}.dto.${ClassName}" >
-    	update ${table.name} 
-    	set 
+    	update ${table.name}
+    	set
       	<#assign updateField>
       	<#list table.columnList as c>
       		${c.name} = ${"#"}{${c.javaFieldId},jdbcType=${c.jdbcType}},
       	</#list>
       	</#assign>
-      	${updateField?substring(0, updateField?last_index_of(","))} 
+      	${updateField?substring(0, updateField?last_index_of(","))}
     	where id = ${"#"}{id,jdbcType=INTEGER}
   	</update>
 </mapper>]]>
